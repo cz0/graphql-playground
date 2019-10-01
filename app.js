@@ -15,6 +15,7 @@ const typeDefs = gql`
   type User {
     id: ID!
     name: String!
+    cars: [Car]
   }
 
   type Car {
@@ -55,6 +56,11 @@ const resolvers = {
         return null;
       }
       return filteredUsers[0];
+    }
+  },
+  User: {
+    cars: ({ id }) => {
+      return cars.filter(car => car.ownedBy === id);
     }
   }
 };
