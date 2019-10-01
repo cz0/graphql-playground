@@ -16,12 +16,13 @@ const typeDefs = gql`
     id: ID!
     name: String!
   }
-  
+
   type Car {
-    id: ID!,
-    make: String!,
-    model: String!,
+    id: ID!
+    make: String!
+    model: String!
     color: String
+    owner: User!
   }
 `;
 
@@ -46,6 +47,15 @@ const resolvers = {
       return filteredCars[0];
     },
     greeting: () => "Hello Techathoners!"
+  },
+  Car: {
+    owner: parent => {
+      const filteredUsers = users.filter(user => user.id === parent.ownedBy);
+      if (!filteredUsers) {
+        return null;
+      }
+      return filteredUsers[0];
+    }
   }
 };
 
