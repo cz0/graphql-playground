@@ -4,7 +4,7 @@
   "description": "A simple GraphQL API",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node_modules/.bin/nodemon app.js"
   },
   "author": "Stepan Manko",
   "license": "ISC",
@@ -13,5 +13,8 @@
     "apollo-server-express": "^2.9.4",
     "express": "^4.17.1",
     "graphql": "^14.5.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }
