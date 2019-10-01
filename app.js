@@ -1,18 +1,27 @@
 const express = require("express");
 const app = express();
 const { ApolloServer, gql } = require("apollo-server-express");
-const { users } = require("./data");
+const { users, cars } = require("./data");
 
 const typeDefs = gql`
   type Query {
     users: [User]
     user(id: ID!): User
+    cars: [Car]
+    car(id: ID!): Car
     greeting: String
   }
 
   type User {
     id: ID!
     name: String!
+  }
+  
+  type Car {
+    id: ID!,
+    make: String!,
+    model: String!,
+    color: String
   }
 `;
 
@@ -26,6 +35,15 @@ const resolvers = {
       }
 
       return filteredUsers[0];
+    },
+    cars: () => cars,
+    car: (_, { id }) => {
+      const filteredCars = cars.filter(car => car.id === id);
+      if (filteredCars.length === 0) {
+        return null;
+      }
+
+      return filteredCars[0];
     },
     greeting: () => "Hello Techathoners!"
   }
